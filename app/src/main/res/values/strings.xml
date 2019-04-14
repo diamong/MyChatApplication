@@ -33,4 +33,12 @@
     <string name="write_your_user_name">Please write your user name first...</string>
     <string name="write_your_status">Please write your status...</string>
     <string name="profile_update_success">Profile Updated Successfully</string>
+    <string name="set_your_profile"><![CDATA[Please set & update your profile iformation]]></string>
+    <string name="create_group">Create Group</string>
+    <string name="enter_group_name">Enter Group Name :</string>
+    <string name="group_name_hint">e.g Coding Cafe</string>
+    <string name="create">Create</string>
+    <string name="write_group_name">Please write Group Name...</string>
+    <string name="cancel">Cancel</string>
+    <string name="is_created">is Created is Successfully</string>
 </resources>
