@@ -29,4 +29,8 @@
     <string name="username">username</string>
     <string name="hey_i_am_available_now">hey, i am available now.</string>
     <string name="update">Update</string>
+    <string name="welcome">Welcome</string>
+    <string name="write_your_user_name">Please write your user name first...</string>
+    <string name="write_your_status">Please write your status...</string>
+    <string name="profile_update_success">Profile Updated Successfully</string>
 </resources>
