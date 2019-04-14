@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "417297490382",
+    "firebase_url": "https://homechatwhatapp.firebaseio.com",
+    "project_id": "homechatwhatapp",
+    "storage_bucket": "homechatwhatapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417297490382:android:16eab682c7c70c15",
+        "android_client_info": {
+          "package_name": "com.diamong.homechatwhatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417297490382-jhrc5b4kji1563950f6cvhid83vm0c7u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.diamong.homechatwhatapp",
+            "certificate_hash": "21f4a81630e501b3d8c5578a3d3afa5a67afb4c6"
+          }
+        },
+        {
+          "client_id": "417297490382-t6o2es5kjl33q7g3pbip6p9aq100fbob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVHmj4UK63dKTA5zqS1bOPoWcyGz2yT6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417297490382-t6o2es5kjl33q7g3pbip6p9aq100fbob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417297490382:android:b4aa65f8ce237ae3",
+        "android_client_info": {
+          "package_name": "com.diamong.mychatapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417297490382-sa03ad3hl0sqe50nt6uqjtah9m52t2ti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.diamong.mychatapplication",
+            "certificate_hash": "21f4a81630e501b3d8c5578a3d3afa5a67afb4c6"
+          }
+        },
+        {
+          "client_id": "417297490382-t6o2es5kjl33q7g3pbip6p9aq100fbob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVHmj4UK63dKTA5zqS1bOPoWcyGz2yT6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417297490382-t6o2es5kjl33q7g3pbip6p9aq100fbob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
