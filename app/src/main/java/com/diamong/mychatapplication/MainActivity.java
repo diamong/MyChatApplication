@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private TabsAccessorAdapter myTabsAccessorAdapter;
 
     private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -25,16 +26,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
-        mToolbar=findViewById(R.id.main_page_toolbar);
+
+        mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("My App");
 
-        myViewPager= findViewById(R.id.main_tabs_pager);
+        myViewPager = findViewById(R.id.main_tabs_pager);
         myTabsAccessorAdapter = new TabsAccessorAdapter(getSupportFragmentManager());
         myViewPager.setAdapter(myTabsAccessorAdapter);
 
-        myTabLayout=findViewById(R.id.main_tabs);
+        myTabLayout = findViewById(R.id.main_tabs);
         myTabLayout.setupWithViewPager(myViewPager);
 
     }
@@ -44,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (currentUser==null){
+        if (currentUser == null) {
             SendUserToLoginActivity();
         }
     }
 
     private void SendUserToLoginActivity() {
-        Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     }
 }

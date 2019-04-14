@@ -1,5 +1,5 @@
-<resources>
-    <string name="app_name">HomeChatWhatApp</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">MyChatApp</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -15,9 +15,12 @@
     <string name="phone">Phone</string>
     <string name="create_account">Create Account</string>
     <string name="need_new_account_link">Need new Account</string>
-    <string name="please_enter_your_email">Please Enter Your Email...</string>
+    <string name="please_enter_your_email" tools:ignore="ExtraTranslation">Please Enter Your Email...</string>
     <string name="please_enter_your_password">Please Enter Your Password...</string>
     <string name="account_create_successfully">Account Create Successfully</string>
     <string name="creating_new_account">Creating New Account</string>
     <string name="create_account_message">Please wait, while we are creating new account for you...</string>
+    <string name="loginsuccess">Logged in Successful..</string>
+    <string name="sign_in">Sign In</string>
+    <string name="please_wait">Please wait...</string>
 </resources>
