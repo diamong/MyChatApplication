@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     private Button CreateAccountButton;
@@ -24,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView AlreadyHaveAccount;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
 
@@ -33,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
+        RootRef= FirebaseDatabase.getInstance().getReference();
 
         InitializeFields();
 
@@ -72,14 +76,17 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                SendUserToLoginActivity();
+
+                                String currentUserId=mAuth.getCurrentUser().getUid();
+                                RootRef.child("Users").child(currentUserId).setValue("");
+
+                                SendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this,
                                         getString(R.string.account_create_successfully), Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
-                            }
-                            else {
-                                String message=task.getException().toString();
-                                Toast.makeText(RegisterActivity.this, "Error  :  "+message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                String message = task.getException().toString();
+                                Toast.makeText(RegisterActivity.this, "Error  :  " + message, Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }
@@ -93,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
         UserPassword = findViewById(R.id.register_password);
         AlreadyHaveAccount = findViewById(R.id.already_have_account_link);
 
-        loadingBar= new ProgressDialog(this);
+        loadingBar = new ProgressDialog(this);
     }
 
     private void SendUserToLoginActivity() {
@@ -101,9 +108,12 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(loginIntent);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
+
+
 }
