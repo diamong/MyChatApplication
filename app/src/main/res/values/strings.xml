@@ -62,5 +62,6 @@
     <string name="send_message_button">Send Message</string>
     <string name="cancel_chat_button">Cancel Chat Request</string>
     <string name="accept_chat_request">Accept Chat Request</string>
+    <string name="remove_this_contact">Remove this Contact</string>
 
 </resources>
