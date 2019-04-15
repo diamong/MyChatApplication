@@ -44,4 +44,17 @@
     <string name="group_name">Group Name</string>
     <string name="write_your_message_here">write your message here...</string>
     <string name="message_first">Please write message first...</string>
+    <string name="write_phone_number_here">Write phone number here...</string>
+    <string name="write_verification_here">Write verification code here...</string>
+    <string name="send_verification_code">Send Verification Code</string>
+    <string name="verify">Verify</string>
+    <string name="phone_number_is_required">Phone number is required...</string>
+    <string name="invalid_phone_number">Invalid Phone Number, Please correct phone number with your country code...</string>
+    <string name="has_been_sent">Code has been sent...please check your SMS...</string>
+    <string name="write_code_first">Plaese write code first...</string>
+    <string name="phone_virification">Phone Verification</string>
+    <string name="we_are_phone">Please your phone number first...</string>
+    <string name="code_vorification">Code Verification</string>
+    <string name="verification_code">Plesase wait, while we are verifying verification code...</string>
+    <string name="congratulations">Congratulations, you\'re logged in successfully</string>
 </resources>

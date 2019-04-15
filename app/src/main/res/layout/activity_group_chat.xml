@@ -56,7 +56,7 @@
 
         <ImageButton
             android:id="@+id/send_message_button"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:src="@drawable/send_message" />
 
