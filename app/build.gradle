@@ -38,6 +38,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.1'
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+' //이 버전으로 해야 에러 안생김...
 }
 
 apply plugin: 'com.google.gms.google-services'

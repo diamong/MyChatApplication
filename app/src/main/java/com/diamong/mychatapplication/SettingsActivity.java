@@ -1,7 +1,9 @@
 package com.diamong.mychatapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
@@ -25,6 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    public static final int GALLERY_REQUEST_CODE = 1001;
     private Button UpdateAccountSettings;
     private EditText userName, userStatus;
     private CircleImageView userProfileImage;
@@ -56,9 +61,17 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         RetrieveUserInfo();
+
+        userProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+            }
+        });
     }
-
-
 
 
     private void InitializeFields() {
@@ -66,6 +79,26 @@ public class SettingsActivity extends AppCompatActivity {
         userName = findViewById(R.id.set_user_name);
         userStatus = findViewById(R.id.set_profile_status);
         userProfileImage = findViewById(R.id.profile_image);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            Uri ImageUri = data.getData();
+
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1,1)
+                    .start(this);
+        }
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+        }
+
     }
 
     private void UpdateSettings() {
@@ -106,21 +139,21 @@ public class SettingsActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if ((dataSnapshot.exists())&& (dataSnapshot.hasChild("name")&&(dataSnapshot.hasChild("image")))){
-                            String retrieveUserName= dataSnapshot.child("name").getValue().toString();
-                            String retrieveStatus= dataSnapshot.child("status").getValue().toString();
-                            String retrieveProfileImage= dataSnapshot.child("image").getValue().toString();
+                        if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") && (dataSnapshot.hasChild("image")))) {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrieveStatus = dataSnapshot.child("status").getValue().toString();
+                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
 
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
-                        } else if ((dataSnapshot.exists())&& (dataSnapshot.hasChild("name"))){
-                            String retrieveUserName= dataSnapshot.child("name").getValue().toString();
-                            String retrieveStatus= dataSnapshot.child("status").getValue().toString();
+                        } else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name"))) {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrieveStatus = dataSnapshot.child("status").getValue().toString();
 
 
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
-                        } else{
+                        } else {
                             userName.setVisibility(View.VISIBLE);
                             Toast.makeText(SettingsActivity.this, getString(R.string.set_your_profile), Toast.LENGTH_SHORT).show();
                         }
