@@ -22,13 +22,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    public static final String REQUEST_STATE_SENT = "request_sent";
+    public static final String CURRENT_STATE_NEW = "new";
     private String receiverUserID, Current_State, sender_userID;
 
     private CircleImageView userProfileImage;
     private TextView userProfileName, userProfileStatus;
     private Button sendMessageRequestButton;
 
-    private DatabaseReference UserRef,ChatRequestRef;
+    private DatabaseReference UserRef, ChatRequestRef;
     private FirebaseAuth mAuth;
 
     @Override
@@ -39,8 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        ChatRequestRef=FirebaseDatabase.getInstance().getReference().child("Chat Requests");
-
+        ChatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests");
 
 
         receiverUserID = getIntent().getExtras().get("visit_user_id").toString();
@@ -51,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         userProfileImage = findViewById(R.id.visit_profile_image);
         userProfileName = findViewById(R.id.visit_user_name);
         userProfileStatus = findViewById(R.id.visit_profile_status);
-        Current_State = "new";
+        Current_State = CURRENT_STATE_NEW;
 
         sendMessageRequestButton = findViewById(R.id.send_message_request_button);
 
@@ -98,13 +99,13 @@ public class ProfileActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(receiverUserID)){
+                        if (dataSnapshot.hasChild(receiverUserID)) {
                             String request_type =
                                     dataSnapshot.child(receiverUserID).child("request_type").getValue().toString();
 
-                            if (request_type.equals("sent")){
-                                Current_State="request_sent";
-                                sendMessageRequestButton.setText("Cancel Chat Request");
+                            if (request_type.equals("sent")) {
+                                Current_State = "request_sent";
+                                sendMessageRequestButton.setText(getString(R.string.cancel_chat_button));
 
                             }
                         }
@@ -121,8 +122,12 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     sendMessageRequestButton.setEnabled(false);
-                    if (Current_State.equals("new")){
+                    if (Current_State.equals(CURRENT_STATE_NEW)) {
                         SendChatRequest();
+                    }
+
+                    if (Current_State.equals(REQUEST_STATE_SENT)) {
+                        CancelChatRequest();
                     }
                 }
             });
@@ -132,22 +137,46 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    private void CancelChatRequest() {
+        ChatRequestRef.child(sender_userID).child(receiverUserID)
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            ChatRequestRef.child(receiverUserID).child(sender_userID)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                sendMessageRequestButton.setEnabled(true);
+                                                Current_State = CURRENT_STATE_NEW;
+                                                sendMessageRequestButton.setText(getString(R.string.send_message_button));
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+    }
+
     private void SendChatRequest() {
         ChatRequestRef.child(sender_userID).child(receiverUserID)
                 .child("request_type").setValue("sent")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             ChatRequestRef.child(receiverUserID).child(sender_userID)
                                     .child("request_type").setValue("received")
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
+                                            if (task.isSuccessful()) {
                                                 sendMessageRequestButton.setEnabled(true);
-                                                Current_State="request_sent";
-                                                sendMessageRequestButton.setText("Cancel Chat Request");
+                                                Current_State = REQUEST_STATE_SENT;
+                                                sendMessageRequestButton.setText(getString(R.string.cancel_chat_button));
                                             }
                                         }
                                     });

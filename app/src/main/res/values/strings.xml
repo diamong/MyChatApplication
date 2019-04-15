@@ -59,5 +59,7 @@
     <string name="congratulations">Congratulations, you\'re logged in successfully</string>
     <string name="profile_image_upload_success">Profile Image Uploading Success</string>
     <string name="profile_iamge_save_in_database">Image Save In Database....</string>
+    <string name="send_message_button">Send Message</string>
+    <string name="cancel_chat_button">Cancel Chat Request</string>
 
 </resources>
