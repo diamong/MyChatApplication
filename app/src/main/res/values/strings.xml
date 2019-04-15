@@ -57,4 +57,6 @@
     <string name="code_vorification">Code Verification</string>
     <string name="verification_code">Plesase wait, while we are verifying verification code...</string>
     <string name="congratulations">Congratulations, you\'re logged in successfully</string>
+    <string name="profile_image_upload_success">Profile Image Uploading Success</string>
+    <string name="profile_iamge_save_in_database">Image Save In Database....</string>
 </resources>
