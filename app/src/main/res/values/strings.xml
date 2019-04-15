@@ -61,5 +61,6 @@
     <string name="profile_iamge_save_in_database">Image Save In Database....</string>
     <string name="send_message_button">Send Message</string>
     <string name="cancel_chat_button">Cancel Chat Request</string>
+    <string name="accept_chat_request">Accept Chat Request</string>
 
 </resources>
