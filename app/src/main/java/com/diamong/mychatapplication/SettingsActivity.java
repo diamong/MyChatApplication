@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -157,54 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
-                /*filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(SettingsActivity.this, getString(R.string.profile_image_upload_success), Toast.LENGTH_SHORT).show();
 
-
-                            //final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
-                            //final String downloadUrl = task.getResult().getStorage().toString();
-
-                          final String downloadUrl = task.getResult().getDownloadUrl().toString();
-
-
-
-
-
-
-
-
-
-
-                            RootRef.child("Users").child(currentUserID).child("image")
-                                    .setValue(downloadUrl)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(SettingsActivity.this,
-                                                        getString(R.string.profile_iamge_save_in_database), Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
-                                            } else {
-
-                                                String message = task.getException().toString();
-                                                Toast.makeText(SettingsActivity.this,
-                                                        "Error  :" + message, Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
-                                            }
-                                        }
-                                    });
-                            System.out.println("url   :" + downloadUrl);
-
-                        } else {
-                            String message = task.getException().toString();
-                            Toast.makeText(SettingsActivity.this, "Error :" + message, Toast.LENGTH_SHORT).show();
-                            loadingBar.dismiss();
-                        }
-                    }
-                });*/
             }
 
         }
@@ -256,6 +210,8 @@ public class SettingsActivity extends AppCompatActivity {
 
                             userName.setText(retrieveUserName);
                             userStatus.setText(retrieveStatus);
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+
                         } else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name"))) {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrieveStatus = dataSnapshot.child("status").getValue().toString();

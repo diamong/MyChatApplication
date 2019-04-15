@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.main_find_friends_option:
-
+                SendUserToFindFriendsActivity();
 
                 break;
 
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
-        finish();
+
     }
 
     private void SendUserToSettingActivity() {
@@ -186,5 +186,10 @@ public class MainActivity extends AppCompatActivity {
         settingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(settingIntent);
         finish();
+    }
+
+    private void SendUserToFindFriendsActivity() {
+        Intent findFriendIntent = new Intent(MainActivity.this, FindFriendsActivity.class);
+        startActivity(findFriendIntent);
     }
 }
