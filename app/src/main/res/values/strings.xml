@@ -63,7 +63,9 @@
     <string name="cancel_chat_button">Cancel Chat Request</string>
     <string name="accept_chat_request">Accept Chat Request</string>
     <string name="accept">Accept</string>
-
+    <string name="new_contact_added">New Contact Added</string>
+    <string name="contact_deleted">Contact Deleted</string>
+    <string name="connect_with_you">    wants to connect with you</string>
 
 
 </resources>
