@@ -1,6 +1,7 @@
 package com.diamong.mychatapplication;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -81,22 +82,37 @@ public class ChatsFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull final ChatsViewHolder holder, int position, @NonNull Contacts model) {
 
                         final String usersIDs = getRef(position).getKey();
+                        final String[] retImage = {"default_image"};
 
                         UsersRef.child(usersIDs).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.hasChild(IMAGE)) {
+                                if (dataSnapshot.exists()){
+                                    if (dataSnapshot.hasChild(IMAGE)) {
 
-                                    final String retImage = dataSnapshot.child(IMAGE).getValue().toString();
-                                    Picasso.get().load(retImage).placeholder(R.drawable.profile_image).into(holder.profile_Image);
+                                        retImage[0] = dataSnapshot.child(IMAGE).getValue().toString();
+                                        Picasso.get().load(retImage[0]).placeholder(R.drawable.profile_image).into(holder.profile_Image);
 
+                                    }
+
+                                    final String retName = dataSnapshot.child(NAME).getValue().toString();
+                                    final String retStatus = dataSnapshot.child(STATUS).getValue().toString();
+
+                                    holder.userName.setText(retName);
+                                    holder.userStatus.setText("Last Seen   :" + "\n" + "Date" + "Time");
+
+                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent chatIntent = new Intent(getContext(),ChatActivity.class);
+                                            chatIntent.putExtra("visit_user_id",usersIDs);
+                                            chatIntent.putExtra("visit_user_name",retName);
+                                            chatIntent.putExtra("visit_user_image", retImage[0]);
+
+                                            startActivity(chatIntent);
+                                        }
+                                    });
                                 }
-
-                                final String retName = dataSnapshot.child(NAME).getValue().toString();
-                                final String retStatus = dataSnapshot.child(STATUS).getValue().toString();
-
-                                holder.userName.setText(retName);
-                                holder.userStatus.setText("Last Seen   :" + "\n" + "Date" + "Time");
                             }
 
                             @Override
