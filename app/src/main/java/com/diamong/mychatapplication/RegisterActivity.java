@@ -19,8 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class RegisterActivity extends AppCompatActivity {
+    public static final String DEVICE_TOKEN = "device_token";
     private Button CreateAccountButton;
     private EditText UserEmail, UserPassword;
     private TextView AlreadyHaveAccount;
@@ -77,8 +79,13 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
 
+                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
                                 String currentUserId=mAuth.getCurrentUser().getUid();
                                 RootRef.child("Users").child(currentUserId).setValue("");
+
+                                RootRef.child("Users").child(currentUserId).child(DEVICE_TOKEN)
+                                        .setValue(deviceToken);
 
                                 SendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this,

@@ -58,8 +58,8 @@
     <string name="congratulations">인증에 성공했습니다.</string>
     <string name="profile_image_upload_success">프로필 이미지 업로드 성공</string>
     <string name="profile_iamge_save_in_database">Image Save In Database....</string>
-    <string name="send_message_button">메시지 보내기</string>
-    <string name="cancel_chat_button">채팅 요청</string>
-    <string name="accept_chat_request">채팅 수락</string>
+    <string name="send_message_button">친구가 되어주세요</string>
+    <string name="cancel_chat_button">친구 요청 취소</string>
+    <string name="accept_chat_request">친구 맺기</string>
     <string name="accept">수락</string>
 </resources>
